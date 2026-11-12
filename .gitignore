@@ -1,0 +1,3 @@
+.env
+/data/responses.json
+/data/responses.json.*.tmp

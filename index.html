@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f0">
+  <meta name="description" content="An anonymous research questionnaire about students' experiences reading e-books and printed books.">
+  <title>A Comparative Study of Reading Formats — Research Questionnaire</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f5f0;
+      --surface: #fffefa;
+      --ink: #20352f;
+      --muted: #74817b;
+      --line: #e7e8df;
+      --green: #245c49;
+      --green-dark: #194634;
+      --green-pale: #edf4ed;
+      --orange: #d78a55;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+      --shadow: 0 16px 42px rgba(32, 53, 47, .055);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.6 var(--sans); }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .page { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(32,53,47,.09); }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 650; letter-spacing: -.025em; text-decoration: none; }
+    .brand-mark { width: 35px; height: 35px; display: grid; place-items: center; color: white; background: var(--green); border-radius: 50%; font: italic 20px var(--serif); }
+    .topbar-note { color: var(--muted); font-size: 13px; }
+    .hero { display: grid; grid-template-columns: minmax(0,1fr) 250px; gap: 46px; align-items: center; padding: 66px 0 42px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 17px; color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--orange); }
+    h1 { max-width: 720px; margin: 0; font: 400 clamp(38px,5.4vw,62px)/1.07 var(--serif); letter-spacing: -.05em; }
+    h1 em { color: var(--green); font-weight: 400; }
+    .hero-copy { max-width: 650px; margin: 18px 0 0; color: #64736c; font-size: 15px; }
+    .hero-card { padding: 22px 23px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); }
+    .hero-card-label { margin: 0 0 12px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .hero-stat { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 12px; }
+    .hero-stat span:first-child { color: #68766f; }
+    .hero-stat span:last-child { color: var(--ink); font-weight: 650; text-align: right; }
+    .survey-layout { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 25px; align-items: start; padding-bottom: 64px; }
+    .side-nav { position: sticky; top: 20px; padding: 18px 15px; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; }
+    .side-nav-title { margin: 0 0 10px 8px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .side-nav a { display: flex; gap: 10px; align-items: baseline; padding: 8px; border-radius: 6px; color: #627068; font-size: 12px; text-decoration: none; }
+    .side-nav a:hover { background: var(--green-pale); color: var(--green); }
+    .nav-number, .question-number { color: var(--orange); font: italic 14px var(--serif); }
+    .side-progress { margin: 15px 8px 0; color: var(--muted); font-size: 11px; }
+    .progress-track { height: 3px; margin-top: 8px; overflow: hidden; background: #e9ece5; border-radius: 8px; }
+    .progress-fill { width: 0; height: 100%; background: var(--green); transition: width .2s ease; }
+    .form-stack { display: grid; gap: 16px; min-width: 0; }
+    .section-card { padding: 29px 32px 32px; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; box-shadow: var(--shadow); scroll-margin-top: 18px; }
+    .section-heading { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 22px; }
+    .section-index { flex: 0 0 33px; width: 33px; height: 33px; display: grid; place-items: center; background: var(--green-pale); border-radius: 50%; color: var(--green); font: italic 16px var(--serif); }
+    .section-heading h2 { margin: 0; font: 400 25px/1.2 var(--serif); letter-spacing: -.025em; }
+    .section-heading p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .introduction { margin: 0 0 22px; padding: 17px 19px; background: #f5f6f1; border-radius: 7px; color: #5b6d62; font-size: 13px; }
+    .introduction p { margin: 0 0 8px; }
+    .introduction p:last-child { margin-bottom: 0; }
+    .question-list { display: grid; gap: 18px; }
+    .question { min-width: 0; margin: 0; padding: 0 0 17px; border: 0; border-bottom: 1px solid #eff0e9; }
+    .question:last-child { padding-bottom: 0; border-bottom: 0; }
+    .question legend, .question-label { display: block; width: 100%; margin: 0 0 10px; padding: 0; color: #344840; font-size: 13px; font-weight: 600; line-height: 1.5; }
+    .question-number { margin-right: 5px; }
+    .options { display: flex; flex-wrap: wrap; gap: 7px; }
+    .option { position: relative; }
+    .option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .option span { display: inline-flex; min-height: 35px; align-items: center; justify-content: center; padding: 7px 12px; color: #647169; background: #fff; border: 1px solid #e3e7df; border-radius: 5px; font-size: 11px; transition: background .15s,border-color .15s,color .15s; }
+    .option input:checked + span { color: var(--green-dark); background: var(--green-pale); border-color: #8cae99; }
+    .option input:focus-visible + span { outline: 3px solid rgba(36,92,73,.2); outline-offset: 2px; }
+    .text-input { width: 100%; min-height: 43px; padding: 10px 12px; color: var(--ink); background: #fff; border: 1px solid #dfe3da; border-radius: 6px; outline: none; }
+    .text-input:focus, textarea:focus { border-color: #609078; box-shadow: 0 0 0 3px rgba(36,92,73,.1); }
+    textarea { width: 100%; min-height: 98px; padding: 11px 12px; color: var(--ink); background: #fff; border: 1px solid #dfe3da; border-radius: 6px; outline: none; resize: vertical; }
+    input::placeholder, textarea::placeholder { color: #a0aaa3; }
+    .conditional { display: none; margin-top: 10px; }
+    .conditional.visible { display: block; }
+    .form-actions { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 7px 2px 0; }
+    .form-actions p { margin: 0; color: var(--muted); font-size: 11px; }
+    .primary-button { min-height: 46px; padding: 0 20px; color: white; background: var(--green); border: 1px solid var(--green); border-radius: 6px; font-size: 13px; font-weight: 650; }
+    .primary-button:hover { background: var(--green-dark); }
+    .primary-button:disabled { opacity: .6; cursor: wait; }
+    .submit-error { padding: 12px 14px; color: #8d352b; background: #fff1ed; border-radius: 6px; font-size: 13px; }
+    .success-card { padding: 32px; background: var(--green-pale); border: 1px solid #dbe8dc; border-radius: 10px; color: var(--green-dark); }
+    .success-card h2 { margin: 0; font: 400 28px var(--serif); }
+    .success-card p { margin: 8px 0 0; font-size: 13px; }
+    .footer { padding: 22px 0 30px; border-top: 1px solid rgba(32,53,47,.09); color: var(--muted); font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width:760px) {
+      .page { width: min(100% - 30px, 620px); }
+      .topbar { min-height: 64px; }
+      .topbar-note { font-size: 11px; }
+      .hero { grid-template-columns: 1fr; gap: 22px; padding: 42px 0 29px; }
+      .hero-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; padding: 15px 17px; }
+      .hero-card-label { grid-column: 1/-1; margin-bottom: 5px; }
+      .hero-stat { padding: 8px 0; }
+      .survey-layout { display: block; padding-bottom: 40px; }
+      .side-nav { position: static; display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin-bottom: 14px; padding: 10px; }
+      .side-nav-title { width: 100%; margin: 0 0 4px 7px; }
+      .side-nav a { padding: 6px; font-size: 10px; }
+      .side-progress { display: none; }
+      .section-card { padding: 23px 19px; }
+    }
+    @media (max-width:440px) {
+      .page { width: calc(100% - 24px); }
+      .section-card { padding: 21px 15px; }
+      .options { gap: 6px; }
+      .option span { min-height: 33px; padding: 6px 9px; font-size: 10px; }
+      .form-actions { align-items: flex-start; flex-direction: column; }
+      .form-actions .primary-button { width: 100%; }
+      .footer-inner { flex-direction: column; gap: 3px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page topbar">
+    <a class="brand" href="/" aria-label="Research questionnaire home"><span class="brand-mark" aria-hidden="true">r.</span><span>Reading, in Every Form</span></a>
+    <span class="topbar-note">University student research questionnaire</span>
+  </header>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Your perspective matters</p>
+        <h1 id="page-title">A comparative study of <em>reading formats.</em></h1>
+        <p class="hero-copy">A research questionnaire exploring students' reading habits, concentration, and comprehension across e-books and printed books.</p>
+      </div>
+      <aside class="hero-card" aria-label="Questionnaire details">
+        <p class="hero-card-label">Before you begin</p>
+        <div class="hero-stat"><span>Questions</span><span>25 · about 4 min</span></div>
+        <div class="hero-stat"><span>Participation</span><span>Voluntary</span></div>
+        <div class="hero-stat"><span>Responses</span><span>Anonymous</span></div>
+      </aside>
+    </section>
+
+    <div class="survey-layout">
+      <nav class="side-nav" aria-label="Questionnaire sections">
+        <p class="side-nav-title">Questionnaire</p>
+        <a href="#section-demographic"><span class="nav-number">01</span> About you</a>
+        <a href="#section-habits"><span class="nav-number">02</span> Reading habits</a>
+        <a href="#section-ebook"><span class="nav-number">03</span> E-book reading</a>
+        <a href="#section-print"><span class="nav-number">04</span> Printed reading</a>
+        <a href="#section-comparison"><span class="nav-number">05</span> Your perspective</a>
+        <div class="side-progress" aria-live="polite">
+          <span id="progress-label">0 of 23 answered</span>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+      </nav>
+
+      <div class="form-stack">
+        <div class="introduction">
+          <p><strong>Dear Participant,</strong></p>
+          <p>This questionnaire explores how e-books and printed books relate to university students' reading habits, concentration, comprehension, and reading preferences. Participation is voluntary. The survey does not ask for names or email addresses. Responses and their submission time are stored on the survey server for academic research and should be presented in summarized form. The hosting provider may keep separate technical connection logs.</p>
+          <p>Please answer based on your own experience. There are no right or wrong answers. You may leave either written-response question blank; please do not include names or other identifying details in your written answers.</p>
+        </div>
+        <form id="survey-form">
+          <section class="section-card" id="section-demographic" aria-labelledby="heading-demographic">
+            <div class="section-heading"><span class="section-index">1</span><div><h2 id="heading-demographic">Demographic information</h2><p>A few details to describe the student participants.</p></div></div>
+            <div id="demographic-questions" class="question-list"></div>
+          </section>
+          <section class="section-card" id="section-habits" aria-labelledby="heading-habits">
+            <div class="section-heading"><span class="section-index">2</span><div><h2 id="heading-habits">Reading habits &amp; preferences</h2><p>Choose the options that best describe your usual reading.</p></div></div>
+            <div id="habit-questions" class="question-list"></div>
+          </section>
+          <section class="section-card" id="section-ebook" aria-labelledby="heading-ebook">
+            <div class="section-heading"><span class="section-index">3</span><div><h2 id="heading-ebook">The e-book experience</h2><p>How much do you agree or disagree with each statement?</p></div></div>
+            <div id="ebook-questions" class="question-list"></div>
+          </section>
+          <section class="section-card" id="section-print" aria-labelledby="heading-print">
+            <div class="section-heading"><span class="section-index">4</span><div><h2 id="heading-print">The printed-book experience</h2><p>Use the same response scale for each statement.</p></div></div>
+            <div id="print-questions" class="question-list"></div>
+          </section>
+          <section class="section-card" id="section-comparison" aria-labelledby="heading-comparison">
+            <div class="section-heading"><span class="section-index">5</span><div><h2 id="heading-comparison">Overall comparison &amp; challenges</h2><p>Finish with your perspective and any suggestions.</p></div></div>
+            <div id="comparison-questions" class="question-list"></div>
+          </section>
+          <div id="submit-error" class="submit-error" role="alert" hidden></div>
+          <div class="form-actions"><p>Questions 1–23 are required. Written questions are optional.</p><button type="submit" class="primary-button">Submit questionnaire <span aria-hidden="true">→</span></button></div>
+        </form>
+        <section class="success-card" id="success-message" role="status" tabindex="-1" hidden>
+          <h2>Thank you for participating.</h2>
+          <p>Your anonymous response has been received. Your contribution will help build a clearer picture of students' reading experiences.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="page footer"><div class="footer-inner"><span>Thank you for sharing your reading experience.</span><span>Reading, in Every Form · Research questionnaire</span></div></footer>
+
+  <script>
+    (() => {
+      "use strict";
+      const scales = ["Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree", "Not Applicable"];
+      const questions = [
+        { id: 1, section: "demographic", text: "What is your age group?", options: ["18–22 years", "23–27 years", "28–32 years", "Above 32 years"] },
+        { id: 2, section: "demographic", text: "What is your gender?", options: ["Male", "Female", "Prefer not to say"] },
+        { id: 3, section: "demographic", text: "Which semester are you currently studying in?", options: ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"] },
+        { id: 4, section: "demographic", text: "Which department do you belong to?", options: ["English Literature", "English Linguistics", "Education", "Computer Science", "Other"], other: true },
+        { id: 5, section: "habit", text: "How often have you read books during the past month?", options: ["Daily", "Several times a week", "Once a week", "Less than once a week", "Not at all"] },
+        { id: 6, section: "habit", text: "How much time do you usually spend reading on a day when you read?", options: ["Less than 30 minutes", "30 minutes–1 hour", "1–2 hours", "More than 2 hours", "I do not currently read books"] },
+        { id: 7, section: "habit", text: "Which reading format do you use most frequently?", options: ["E-books", "Printed books", "Both equally", "Neither"] },
+        { id: 8, section: "habit", text: "Which reading format do you personally prefer?", options: ["E-books", "Printed books", "Both equally", "No preference"] },
+        { id: 9, section: "habit", text: "What is your main purpose for reading?", options: ["Academic study", "Research", "Entertainment (novels, stories, etc.)", "Personal knowledge and development", "Other"], other: true },
+        { id: 10, section: "habit", text: "Which device do you mainly use to read e-books?", options: ["Smartphone", "Laptop or desktop computer", "Tablet", "Dedicated e-reader (e.g., Kindle)", "I do not read e-books"] },
+        { id: 11, section: "ebook", text: "E-books make it easier for me to access reading materials.", options: scales },
+        { id: 12, section: "ebook", text: "E-books encourage me to read more frequently.", options: scales },
+        { id: 13, section: "ebook", text: "Features such as searching and highlighting make e-books useful for studying.", options: scales },
+        { id: 14, section: "ebook", text: "Notifications and other digital activities distract me while reading e-books.", options: scales },
+        { id: 15, section: "ebook", text: "Reading e-books for long periods causes eye discomfort.", options: scales },
+        { id: 16, section: "print", text: "I can concentrate better when reading printed books.", options: scales },
+        { id: 17, section: "print", text: "Printed books help me understand difficult information more clearly.", options: scales },
+        { id: 18, section: "print", text: "I remember information better when I read printed books.", options: scales },
+        { id: 19, section: "print", text: "Printed books are comfortable for long reading sessions.", options: scales },
+        { id: 20, section: "print", text: "Reading printed books motivates me to finish what I am reading.", options: scales },
+        { id: 21, section: "comparison", text: "Which format do you find more suitable for academic reading?", options: ["E-books", "Printed books", "Both equally", "Not sure"] },
+        { id: 22, section: "comparison", text: "Which format helps you stay focused while reading?", options: ["E-books", "Printed books", "Both equally", "Not sure"] },
+        { id: 23, section: "comparison", text: "What is the biggest challenge that prevents you from reading more regularly?", options: ["Lack of time", "Digital distractions", "Cost or unavailability of books", "Lack of interest or motivation", "Difficulty concentrating", "Other"], other: true },
+        { id: 24, section: "comparison", text: "What is the main reason you prefer e-books or printed books?", type: "textarea" },
+        { id: 25, section: "comparison", text: "What one change would help you read more frequently or improve your concentration while reading?", type: "textarea" }
+      ];
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+      }
+
+      function renderQuestion(question) {
+        if (question.type === "textarea") {
+          return `<div class="question"><label class="question-label" for="q${question.id}"><span class="question-number">${question.id}.</span> ${question.text}</label><textarea id="q${question.id}" name="q${question.id}" maxlength="2000" placeholder="Your answer (optional)"></textarea></div>`;
+        }
+        const options = question.options.map(option => `<label class="option"><input type="radio" name="q${question.id}" value="${escapeHtml(option)}" required><span>${escapeHtml(option)}</span></label>`).join("");
+        const other = question.other ? `<div class="conditional" id="other-${question.id}"><label class="sr-only" for="q${question.id}Other">Please specify your answer for question ${question.id}</label><input class="text-input" id="q${question.id}Other" name="q${question.id}Other" type="text" maxlength="160" placeholder="Please specify" disabled></div>` : "";
+        return `<fieldset class="question"><legend><span class="question-number">${question.id}.</span> ${question.text}</legend><div class="options">${options}</div>${other}</fieldset>`;
+      }
+
+      for (const [section, target] of Object.entries({
+        demographic: "demographic-questions",
+        habit: "habit-questions",
+        ebook: "ebook-questions",
+        print: "print-questions",
+        comparison: "comparison-questions"
+      })) {
+        document.getElementById(target).innerHTML = questions.filter(question => question.section === section).map(renderQuestion).join("");
+      }
+
+      const form = document.getElementById("survey-form");
+      const errorBox = document.getElementById("submit-error");
+
+      function updateConditional(questionId) {
+        const selected = form.querySelector(`input[name="q${questionId}"]:checked`);
+        const wrapper = document.getElementById(`other-${questionId}`);
+        const input = document.getElementById(`q${questionId}Other`);
+        const active = selected && selected.value === "Other";
+        wrapper.classList.toggle("visible", Boolean(active));
+        input.disabled = !active;
+        input.required = Boolean(active);
+      }
+
+      function updateProgress() {
+        let answered = 0;
+        for (let id = 1; id <= 23; id++) {
+          if (form.querySelector(`input[name="q${id}"]:checked`)) answered++;
+        }
+        document.getElementById("progress-label").textContent = `${answered} of 23 answered`;
+        document.getElementById("progress-fill").style.width = `${answered / 23 * 100}%`;
+      }
+
+      form.addEventListener("change", event => {
+        for (const id of [4, 9, 23]) {
+          if (event.target.name === `q${id}`) updateConditional(id);
+        }
+        updateProgress();
+      });
+
+      form.addEventListener("submit", async event => {
+        event.preventDefault();
+        errorBox.hidden = true;
+        if (!form.reportValidity()) return;
+
+        const response = {};
+        for (const question of questions) {
+          if (question.type === "textarea") {
+            response[`q${question.id}`] = form.elements[`q${question.id}`].value.trim();
+          } else {
+            const selected = form.querySelector(`input[name="q${question.id}"]:checked`);
+            response[`q${question.id}`] = selected.value;
+            if (question.other) response[`q${question.id}Other`] = selected.value === "Other" ? form.elements[`q${question.id}Other`].value.trim() : "";
+          }
+        }
+
+        const button = form.querySelector('button[type="submit"]');
+        button.disabled = true;
+        button.textContent = "Submitting…";
+        try {
+          const result = await fetch("/api/responses", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(response)
+          });
+          const data = await result.json();
+          if (!result.ok) throw new Error(data.error || "Your response could not be submitted. Please try again.");
+          form.hidden = true;
+          document.getElementById("success-message").hidden = false;
+          document.getElementById("success-message").focus();
+        } catch (error) {
+          errorBox.textContent = error.message === "Failed to fetch"
+            ? "We couldn't reach the survey server. Please check your connection and try again."
+            : error.message;
+          errorBox.hidden = false;
+          button.disabled = false;
+          button.innerHTML = 'Submit questionnaire <span aria-hidden="true">→</span>';
+          errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
