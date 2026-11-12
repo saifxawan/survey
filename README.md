@@ -13,10 +13,19 @@ The administrator username is configured with `ADMIN_USERNAME` (defaults to `fas
 
 ## Vercel
 
-`vercel.json` maps `/admin` to `admin.html` so the dashboard page opens at `https://your-domain/admin`. The questionnaire API and dashboard API in this project are implemented by `server.js`; Vercel static hosting does not run that standalone server. Therefore, the route rewrite only fixes opening the dashboard page. Sign-in, response submission, and report loading will require deploying API functions backed by persistent storage.
+`vercel.json` maps `/admin` to `admin.html`. The files under `api/` provide Vercel serverless functions for anonymous response submissions and administrator sign-in, session management, reporting, and sign-out. Responses and revocable administrator sessions are stored in Neon Postgres.
+
+To enable survey submission and administrator sign-in on Vercel:
+
+1. Create a Neon Postgres database and copy its pooled connection string (`DATABASE_URL`).
+2. In Vercel, open **Project → Settings → Environment Variables** and add `DATABASE_URL`, `ADMIN_USERNAME`, and `ADMIN_PASSWORD` for the **Production** environment. Set `ADMIN_PASSWORD` to a new, private password of at least 12 characters; do not reuse the example or commit it to Git.
+3. Redeploy after saving the environment variables. The API creates the required database tables automatically on first use.
+4. Open `/admin` on the deployed site and sign in with those environment variables. If they are missing, the API reports a configuration error rather than accepting an insecure default.
+
+Use the same database URL in **Preview** or **Development** only if you intend those deployments to share the same response data. Do not expose the database connection string in client-side environment variables (for example, `NEXT_PUBLIC_*`).
 
 ## Responses and deployment
 
 Responses are anonymous and stored in `data/responses.json` on the server. Keep that file and any CSV exports confidential, restrict server access, and follow your institution's research-data retention and ethics requirements. The dashboard shows response counts, answer distributions, and optional written answers; it can download a CSV or print a report.
 
-The default server listens on `127.0.0.1`, which is suitable for local testing only. To collect responses from other people, deploy the app on a server with persistent disk storage, set `HOST=0.0.0.0` and `NODE_ENV=production`, expose it through HTTPS, and keep the `.env` file and `data` directory private. `NODE_ENV=production` enables the secure-only administrator cookie. Use a single application instance unless response storage is moved to a database designed for concurrent/multi-instance use. Back up the data securely.
+The default server listens on `127.0.0.1`, which is suitable for local testing only. The standalone `server.js` development server stores responses in `data/responses.json`; Vercel functions use the Neon database configured by `DATABASE_URL`. Deploy the site over HTTPS and keep the `.env` file, database credentials, response data, and CSV exports private. Back up and retain research data according to your institution's requirements.

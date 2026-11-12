@@ -1,0 +1,15 @@
+{
+  "name": "reading-formats-survey",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check lib/api.js && node --check lib/database.js && node --check api/responses.js && node --check api/admin/login.js && node --check api/admin/session.js && node --check api/admin/responses.js && node --check api/admin/logout.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0"
+  }
+}
