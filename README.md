@@ -11,6 +11,10 @@ An anonymous student research questionnaire with a server-backed response store 
 
 The administrator username is configured with `ADMIN_USERNAME` (defaults to `fasiha`). The private password is read from `ADMIN_PASSWORD`; it is never included in the browser page. Change the initial password before sharing the site.
 
+## Vercel
+
+`vercel.json` maps `/admin` to `admin.html` so the dashboard page opens at `https://your-domain/admin`. The questionnaire API and dashboard API in this project are implemented by `server.js`; Vercel static hosting does not run that standalone server. Therefore, the route rewrite only fixes opening the dashboard page. Sign-in, response submission, and report loading will require deploying API functions backed by persistent storage.
+
 ## Responses and deployment
 
 Responses are anonymous and stored in `data/responses.json` on the server. Keep that file and any CSV exports confidential, restrict server access, and follow your institution's research-data retention and ethics requirements. The dashboard shows response counts, answer distributions, and optional written answers; it can download a CSV or print a report.
